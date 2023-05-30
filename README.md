@@ -1,30 +1,6 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+E2e tests for simple books API
 
 ## Installation
 
@@ -32,42 +8,78 @@
 $ npm install
 ```
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
 ## Test
 
 ```bash
-# unit tests
-$ npm run test
-
 # e2e tests
 $ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+## Tasks
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Developers finished following tasks during last scrum sprint, please create E2E tests to cover work done in those tasks to ensure that they work correctly.
 
-## Stay in touch
+### Links to free public API - Simple Books
+ - documentation - https://app.simplbooks.com/api-documentation/
+ - open-api / swagger - https://www.postman.com/eu6grp15/workspace/simple-books-api-glitch-me/documentation/18551292-ab5af4da-41cd-4fa3-a443-f0f6b38ec6b6
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+### Task 1 - Add endpoint to list collection of books
+GET `/books`
 
-Nest is [MIT licensed](LICENSE).
+Returns a list of books.
+Optional query parameters:
+- type: fiction or non-fiction
+- limit: a number between 1 and 20.
+
+
+### Task 2 - Add endpoint to submit a new book order
+POST `/orders`
+
+Allows you to submit a new order. Requires authentication.
+The request body needs to be in JSON format and include the following properties:
+ - `bookId` - Integer - Required
+ - `customerName` - String - Required
+
+
+### Task 3 - Add endpoints to view customer orders - single order and all orders
+GET `/orders`
+
+Allows you to view all orders. Requires authentication.
+
+GET `/orders/:orderId`
+
+Allows you to view an existing order. Requires authentication.
+
+
+### Task 4 - Add endpoint to update an order
+PATCH `/orders/:orderId`
+
+Update an existing order. Requires authentication.
+The request body needs to be in JSON format and allows you to update the following properties:
+ - `customerName` - String
+
+Example
+```
+PATCH /orders/PF6MflPDcuhWobZcgmJy5
+
+Authorization: Bearer <YOUR TOKEN>
+{
+  "customerName": "John"
+}
+```
+
+
+
+### Task 5 - Add endpoint to delete an order
+DELETE `/orders/:orderId`
+
+Delete an existing order. Requires authentication.
+The request body needs to be empty.
+
+Example
+```
+DELETE /orders/PF6MflPDcuhWobZcgmJy5
+
+Authorization: Bearer <YOUR TOKEN>
+```

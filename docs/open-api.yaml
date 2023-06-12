@@ -1,0 +1,623 @@
+openapi: 3.0.0
+info:
+  title: Simple Books API
+  version: 1.0.0
+servers:
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+paths:
+  /status:
+    get:
+      tags:
+        - default
+      summary: API Status
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:07:55 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '15'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"f-v/Y1JusChTxrQUzPtNAKycooOTA"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                status: OK
+  /api-clients/:
+    post:
+      tags:
+        - default
+      summary: Register API Client
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                clientName: Example
+                clientEmail: 88496d9c-2bae-4c9d-8a4e-8cefa32969b4@example.com
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:08:48 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '82'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"52-zFsUG4RaJ3sZKDP1Q4fwSVQPqo0"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                accessToken: <ACCESS_TOKEN>
+        '409':
+          description: Conflict
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:15:15 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '65'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"41-rjAEsJfLskSzU5wzBOncJcKHOOY"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: API client already registered. Try a different email.
+  /books:
+    get:
+      tags:
+        - default
+      summary: List of Books
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+          example: non-fiction
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:09:08 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '417'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"1a1-MfqhfTYtZO2sguD1mJq8Vf41WjU"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - id: 1
+                  name: The Russian
+                  type: fiction
+                  available: true
+                - id: 2
+                  name: Just as I Am
+                  type: non-fiction
+                  available: false
+                - id: 3
+                  name: The Vanishing Half
+                  type: fiction
+                  available: true
+                - id: 4
+                  name: The Midnight Library
+                  type: fiction
+                  available: true
+                - id: 5
+                  name: Untamed
+                  type: non-fiction
+                  available: true
+                - id: 6
+                  name: Viscount Who Loved Me
+                  type: fiction
+                  available: true
+  /books/{bookId}:
+    get:
+      tags:
+        - default
+      summary: Get a single book
+      parameters:
+        - name: bookId
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:09:28 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '161'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"a1-Mcj+H8w3JMJfpTU/R3TvAdr/Z7E"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: 1
+                name: The Russian
+                author: James Patterson and James O. Born
+                isbn: '1780899475'
+                type: fiction
+                price: 12.98
+                current-stock: 12
+                available: true
+        '404':
+          description: Not Found
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:09:20 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '31'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"1f-kqIHH0mGHf5kLZtvtzLO/yKWbuY"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: No book with id 100
+  /orders:
+    post:
+      tags:
+        - default
+      summary: Order Book
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                bookId: 1
+                customerName: '{{$randomFullName}}'
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:09:59 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '50'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"32-/aA+oJrOuYBWEgcJh4Ef1qsk+wM"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                created: true
+                orderId: irZ7LA5NIHA2DYRjXdsNd
+    get:
+      tags:
+        - default
+      summary: Get all book orders
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:10:07 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '577'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"241-zXh4YMRizkSesXV8m/k4m3H4X0w"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                - id: NmtqGTg65yS8wXWUcrt44
+                  bookId: 1
+                  customerName: Dana Wiegand
+                  createdBy: >-
+                    e9022e553241d8386c7e438af216f9fe3fd3e0940d671a4aa539aec90bd9cb5d
+                  quantity: 1
+                  timestamp: 1685434055384
+                - id: qUelv6bPAyMGgEfqmSQZQ
+                  bookId: 1
+                  customerName: Charlotte O'Reilly
+                  createdBy: >-
+                    e9022e553241d8386c7e438af216f9fe3fd3e0940d671a4aa539aec90bd9cb5d
+                  quantity: 1
+                  timestamp: 1685434159204
+                - id: irZ7LA5NIHA2DYRjXdsNd
+                  bookId: 1
+                  customerName: Valerie Dach
+                  createdBy: >-
+                    e9022e553241d8386c7e438af216f9fe3fd3e0940d671a4aa539aec90bd9cb5d
+                  quantity: 1
+                  timestamp: 1685459399766
+  /orders/{orderId}:
+    get:
+      tags:
+        - default
+      summary: Get an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: NmtqGTg65yS8wXWUcrt44
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:10:30 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '189'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"bd-oKCjNcnG2Xid8fL/546Py5aB2dQ"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                id: NmtqGTg65yS8wXWUcrt44
+                bookId: 1
+                customerName: Dana Wiegand
+                createdBy: >-
+                  e9022e553241d8386c7e438af216f9fe3fd3e0940d671a4aa539aec90bd9cb5d
+                quantity: 1
+                timestamp: 1685434055384
+        '404':
+          description: Not Found
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:10:36 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '51'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"33-9cqQ8LZjGVngOJfvQf7RvMcAQYo"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: No order with id NmtqGTg65yS8wXWUcrt43.
+    patch:
+      tags:
+        - default
+      summary: Update an order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                customerName: John
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: NmtqGTg65yS8wXWUcrt43
+      responses:
+        '204':
+          description: No Content
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:14:36 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: null
+        '404':
+          description: Not Found
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:14:53 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '51'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"33-9cqQ8LZjGVngOJfvQf7RvMcAQYo"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: No order with id NmtqGTg65yS8wXWUcrt43.
+    delete:
+      tags:
+        - default
+      summary: Delete an order
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          schema:
+            type: string
+          required: true
+          example: irZ7LA5NIHA2DYRjXdsNd
+      responses:
+        '204':
+          description: No Content
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:12:17 GMT
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: null
+        '404':
+          description: Not Found
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 30 May 2023 15:12:22 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json; charset=utf-8
+            Content-Length:
+              schema:
+                type: integer
+                example: '51'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            x-powered-by:
+              schema:
+                type: string
+                example: Express
+            etag:
+              schema:
+                type: string
+                example: W/"33-DWIopOwX+YBEdEVDzgJsZXw1w+o"
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: No order with id irZ7LA5NIHA2DYRjXdsNd.

@@ -19,9 +19,13 @@ $ npm run test:e2e
 
 Developers finished following tasks during last scrum sprint, please create E2E tests to cover work done in those tasks to ensure that they work correctly.
 
-### Links to free public API - Simple Books
- - documentation - https://app.simplbooks.com/api-documentation/
- - open-api / swagger - https://www.postman.com/eu6grp15/workspace/simple-books-api-glitch-me/documentation/18551292-ab5af4da-41cd-4fa3-a443-f0f6b38ec6b6
+### API
+
+The API is available `https://simple-books-api.glitch.me`
+
+Open API and Postman collection are available in the `/docs` folder
+
+[Original documentation](https://github.com/vdespa/introduction-to-postman-course/blob/main/simple-books-api.md)
 
 
 ### Task 1 - Add endpoint to list collection of books
